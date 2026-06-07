@@ -91,7 +91,15 @@
     .nav-card-pen    img { height: 64px; padding: 4px; }
     .nav-card-label {
       font-size: 0.7rem; font-weight: 700; color: var(--purple);
-      text-align: center; padding: 3px 4px 4px;
+      text-align: center; padding: 3px 4px 1px;
+    }
+    .nav-card-price {
+      font-size: 0.65rem; font-weight: 700; color: #2a7a2a;
+      text-align: center; padding: 0 4px 1px;
+    }
+    .nav-card-minqty {
+      font-size: 0.6rem; color: #999;
+      text-align: center; padding: 0 4px 4px;
     }
 
     /* ── Main ── */
@@ -248,7 +256,15 @@
     .m-card-pen    img { height: 70px; padding: 6px; }
     .m-card-label {
       font-size: 0.68rem; font-weight: 700; color: var(--purple);
-      text-align: center; padding: 3px 4px 5px;
+      text-align: center; padding: 3px 4px 2px;
+    }
+    .m-card-price {
+      font-size: 0.62rem; font-weight: 700; color: #2a7a2a;
+      text-align: center; padding: 0 4px 1px;
+    }
+    .m-card-minqty {
+      font-size: 0.58rem; color: #999;
+      text-align: center; padding: 0 4px 5px;
     }
   }
 
@@ -368,20 +384,20 @@ const tshirts = [
   {id:'07',src:'07.jpg',label:'T恤 07'},
 ];
 const pens = [
-  {id:'a',src:'a.png',label:'笔 A'},
-  {id:'b',src:'b.png',label:'笔 B'},
-  {id:'c',src:'c.png',label:'笔 C'},
-  {id:'d',src:'d.png',label:'笔 D'},
-  {id:'e',src:'e.png',label:'笔 E'},
-  {id:'f',src:'f.png',label:'笔 F'},
-  {id:'g',src:'g.png',label:'笔 G'},
-  {id:'h',src:'h.png',label:'笔 H'},
-  {id:'i',src:'i.png',label:'笔 I'},
-  {id:'j',src:'j.png',label:'笔 J'},
-  {id:'k',src:'k.png',label:'笔 K'},
-  {id:'l',src:'l.png',label:'笔 L'},
-  {id:'m',src:'m.png',label:'笔 M'},
-  {id:'n',src:'n.png',label:'笔 N'},
+  {id:'a',src:'a.png',label:'笔 A',price:'$0.69/个',minQty:'最少 250 个'},
+  {id:'b',src:'b.png',label:'笔 B',price:'$0.87/个',minQty:'最少 300 个'},
+  {id:'c',src:'c.png',label:'笔 C',price:'$0.69/个',minQty:'最少 250 个'},
+  {id:'d',src:'d.png',label:'笔 D',price:'$0.92/个',minQty:'最少 250 个'},
+  {id:'e',src:'e.png',label:'笔 E',price:'$1.77/个',minQty:'最少 150 个'},
+  {id:'f',src:'f.png',label:'笔 F',price:'$0.79/个',minQty:'最少 250 个'},
+  {id:'g',src:'g.png',label:'笔 G',price:'$0.92/个',minQty:'最少 250 个'},
+  {id:'h',src:'h.png',label:'笔 H',price:'$0.99/个',minQty:'最少 250 个'},
+  {id:'i',src:'i.png',label:'笔 I',price:'$0.61/$0.41/个',minQty:'最少 12 个'},
+  {id:'j',src:'j.png',label:'笔 J',price:'$1.09/个',minQty:'最少 12 个'},
+  {id:'k',src:'k.png',label:'笔 K',price:'$0.69/个',minQty:'最少 500 个'},
+  {id:'l',src:'l.png',label:'笔 L',price:'$2.02/个',minQty:'最少 125 个'},
+  {id:'m',src:'m.png',label:'笔 M',price:'$1.90/个',minQty:'仅50个紫色库存'},
+  {id:'n',src:'n.png',label:'笔 N',price:'$1.48/个',minQty:'最少 300 个'},
 ];
 const pendesigns = [
   {id:'p01',src:'p01.png',label:'笔设计 01'},
@@ -400,7 +416,8 @@ function buildNavCard(item, type) {
   div.draggable = true;
   div.dataset.src = item.src;
   div.dataset.label = item.label;
-  div.innerHTML = `<img src="${item.src}" alt="${item.label}" draggable="false"><div class="nav-card-label">${item.label}</div>`;
+  const priceHtml = item.price ? `<div class="nav-card-price">${item.price}</div><div class="nav-card-minqty">${item.minQty}</div>` : '';
+  div.innerHTML = `<img src="${item.src}" alt="${item.label}" draggable="false"><div class="nav-card-label">${item.label}</div>${priceHtml}`;
   div.addEventListener('dragstart', e => {
     dragItem = div;
     setTimeout(() => div.classList.add('dragging-ghost'), 0);
@@ -417,7 +434,8 @@ function buildMobileCard(item, type) {
   div.className = `m-card m-card-${type}`;
   div.dataset.src = item.src;
   div.dataset.label = item.label;
-  div.innerHTML = `<img src="${item.src}" alt="${item.label}"><div class="m-card-label">${item.label}</div>`;
+  const mPriceHtml = item.price ? `<div class="m-card-price">${item.price}</div><div class="m-card-minqty">${item.minQty}</div>` : '';
+  div.innerHTML = `<img src="${item.src}" alt="${item.label}"><div class="m-card-label">${item.label}</div>${mPriceHtml}`;
   div.addEventListener('click', () => placeItem(item.src, item.label));
   return div;
 }

@@ -191,6 +191,9 @@
       display: none;
       flex-shrink: 0;
     }
+    .slot.is-tshirt img {
+      height: calc(50vw - 30px);
+    }
     .slot-placeholder {
       text-align: center; pointer-events: none;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -399,35 +402,35 @@
 
 <script>
 const tshirts = [
-  {id:'02',src:'02.jpg',label:'T恤 02'},
-  {id:'01',src:'01.jpg',label:'T恤 01'},
-  {id:'03',src:'03.jpg',label:'T恤 03'},
-  {id:'04',src:'04.jpg',label:'T恤 04'},
-  {id:'05',src:'05.jpg',label:'T恤 05'},
-  {id:'06',src:'06.jpg',label:'T恤 06'},
-  {id:'08',src:'08.png',label:'T恤 08'},
-  {id:'07',src:'07.jpg',label:'T恤 07'},
+  {id:'02',src:'02.jpg',label:'T恤 02',type:'tshirt'},
+  {id:'01',src:'01.jpg',label:'T恤 01',type:'tshirt'},
+  {id:'03',src:'03.jpg',label:'T恤 03',type:'tshirt'},
+  {id:'04',src:'04.jpg',label:'T恤 04',type:'tshirt'},
+  {id:'05',src:'05.jpg',label:'T恤 05',type:'tshirt'},
+  {id:'06',src:'06.jpg',label:'T恤 06',type:'tshirt'},
+  {id:'08',src:'08.png',label:'T恤 08',type:'tshirt'},
+  {id:'07',src:'07.jpg',label:'T恤 07',type:'tshirt'},
 ];
 const pens = [
-  {id:'a',src:'a.png',label:'笔 A',price:'$0.69/个',minQty:'最少 250 个'},
-  {id:'b',src:'b.png',label:'笔 B',price:'$0.87/个',minQty:'最少 300 个'},
-  {id:'c',src:'c.png',label:'笔 C',price:'$0.69/个',minQty:'最少 250 个'},
-  {id:'d',src:'d.png',label:'笔 D',price:'$0.92/个',minQty:'最少 250 个'},
-  {id:'e',src:'e.png',label:'笔 E',price:'$1.77/个',minQty:'最少 150 个'},
-  {id:'f',src:'f.png',label:'笔 F',price:'$0.79/个',minQty:'最少 250 个'},
-  {id:'g',src:'g.png',label:'笔 G',price:'$0.92/个',minQty:'最少 250 个'},
-  {id:'h',src:'h.png',label:'笔 H',price:'$0.99/个',minQty:'最少 250 个'},
-  {id:'i',src:'i.png',label:'笔 I',price:'$0.61/$0.41/个',minQty:'最少 12 个'},
-  {id:'j',src:'j.png',label:'笔 J',price:'$1.09/个',minQty:'最少 12 个'},
-  {id:'k',src:'k.png',label:'笔 K',price:'$0.69/个',minQty:'最少 500 个'},
-  {id:'l',src:'l.png',label:'笔 L',price:'$2.02/个',minQty:'最少 125 个'},
-  {id:'m',src:'m.png',label:'笔 M',price:'$1.90/个',minQty:'仅50个紫色库存'},
-  {id:'n',src:'n.png',label:'笔 N',price:'$1.48/个',minQty:'最少 300 个'},
+  {id:'a',src:'a.png',label:'笔 A',price:'$0.69/个',minQty:'最少 250 个',type:'pen'},
+  {id:'b',src:'b.png',label:'笔 B',price:'$0.87/个',minQty:'最少 300 个',type:'pen'},
+  {id:'c',src:'c.png',label:'笔 C',price:'$0.69/个',minQty:'最少 250 个',type:'pen'},
+  {id:'d',src:'d.png',label:'笔 D',price:'$0.92/个',minQty:'最少 250 个',type:'pen'},
+  {id:'e',src:'e.png',label:'笔 E',price:'$1.77/个',minQty:'最少 150 个',type:'pen'},
+  {id:'f',src:'f.png',label:'笔 F',price:'$0.79/个',minQty:'最少 250 个',type:'pen'},
+  {id:'g',src:'g.png',label:'笔 G',price:'$0.92/个',minQty:'最少 250 个',type:'pen'},
+  {id:'h',src:'h.png',label:'笔 H',price:'$0.99/个',minQty:'最少 250 个',type:'pen'},
+  {id:'i',src:'i.png',label:'笔 I',price:'$0.61/$0.41/个',minQty:'最少 12 个',type:'pen'},
+  {id:'j',src:'j.png',label:'笔 J',price:'$1.09/个',minQty:'最少 12 个',type:'pen'},
+  {id:'k',src:'k.png',label:'笔 K',price:'$0.69/个',minQty:'最少 500 个',type:'pen'},
+  {id:'l',src:'l.png',label:'笔 L',price:'$2.02/个',minQty:'最少 125 个',type:'pen'},
+  {id:'m',src:'m.png',label:'笔 M',price:'$1.90/个',minQty:'仅50个紫色库存',type:'pen'},
+  {id:'n',src:'n.png',label:'笔 N',price:'$1.48/个',minQty:'最少 300 个',type:'pen'},
 ];
 const pendesigns = [
-  {id:'p01',src:'p01.png',label:'笔设计 01'},
-  {id:'p02',src:'p02.png',label:'笔设计 02'},
-  {id:'p03',src:'p03.png',label:'笔设计 03'},
+  {id:'p01',src:'p01.png',label:'笔设计 01',type:'pen'},
+  {id:'p02',src:'p02.png',label:'笔设计 02',type:'pen'},
+  {id:'p03',src:'p03.png',label:'笔设计 03',type:'pen'},
 ];
 
 const allItems = { tshirt: tshirts, pen: pens, pendesign: pendesigns };
@@ -445,13 +448,14 @@ function buildNavCard(item, type) {
   div.innerHTML = `<img src="${item.src}" alt="${item.label}" draggable="false"><div class="nav-card-label">${item.label}</div>${priceHtml}`;
   div.dataset.price = item.price || '';
   div.dataset.minQty = item.minQty || '';
+  div.dataset.type = item.type || '';
   div.addEventListener('dragstart', e => {
     dragItem = div;
     setTimeout(() => div.classList.add('dragging-ghost'), 0);
     e.dataTransfer.effectAllowed = 'copy';
   });
   div.addEventListener('dragend', () => { div.classList.remove('dragging-ghost'); dragItem = null; });
-  div.addEventListener('click', () => placeItem(item.src, item.label, item.price, item.minQty));
+  div.addEventListener('click', () => placeItem(item.src, item.label, item.price, item.minQty, item.type));
   return div;
 }
 
@@ -463,7 +467,7 @@ function buildMobileCard(item, type) {
   div.dataset.label = item.label;
   const mPriceHtml = item.price ? `<div class="m-card-price">${item.price}</div><div class="m-card-minqty">${item.minQty}</div>` : '';
   div.innerHTML = `<img src="${item.src}" alt="${item.label}"><div class="m-card-label">${item.label}</div>${mPriceHtml}`;
-  div.addEventListener('click', () => placeItem(item.src, item.label, item.price, item.minQty));
+  div.addEventListener('click', () => placeItem(item.src, item.label, item.price, item.minQty, item.type));
   return div;
 }
 
@@ -483,15 +487,15 @@ function renderMobileGrid() {
 }
 
 /* ── Shared place logic ── */
-function placeItem(src, label, price, minQty) {
+function placeItem(src, label, price, minQty, type) {
   const left = document.getElementById('slot-left');
   const right = document.getElementById('slot-right');
-  if (!left.classList.contains('filled')) fillSlot('left', src, label, price, minQty);
-  else if (!right.classList.contains('filled')) fillSlot('right', src, label, price, minQty);
-  else fillSlot('left', src, label, price, minQty);
+  if (!left.classList.contains('filled')) fillSlot('left', src, label, price, minQty, type);
+  else if (!right.classList.contains('filled')) fillSlot('right', src, label, price, minQty, type);
+  else fillSlot('left', src, label, price, minQty, type);
 }
 
-function fillSlot(side, src, label, price, minQty) {
+function fillSlot(side, src, label, price, minQty, type) {
   const slot = document.getElementById(`slot-${side}`);
   slot.querySelector('img').src = src;
   slot.querySelector('img').style.display = 'block';
@@ -500,6 +504,7 @@ function fillSlot(side, src, label, price, minQty) {
   slot.querySelector('.slot-minqty').textContent = minQty || '';
   slot.querySelector('.slot-placeholder').style.display = 'none';
   slot.classList.add('filled');
+  slot.classList.toggle('is-tshirt', type === 'tshirt');
   updateSelected();
 }
 
@@ -512,7 +517,7 @@ function clearSlot(e, side) {
   slot.querySelector('.slot-price').textContent = '';
   slot.querySelector('.slot-minqty').textContent = '';
   slot.querySelector('.slot-placeholder').style.display = '';
-  slot.classList.remove('filled', 'drag-over');
+  slot.classList.remove('filled', 'drag-over', 'is-tshirt');
   updateSelected();
 }
 
@@ -529,7 +534,7 @@ function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
 function onDrop(e, side) {
   e.preventDefault();
   e.currentTarget.classList.remove('drag-over');
-  if (dragItem) fillSlot(side, dragItem.dataset.src, dragItem.dataset.label, dragItem.dataset.price, dragItem.dataset.minQty);
+  if (dragItem) fillSlot(side, dragItem.dataset.src, dragItem.dataset.label, dragItem.dataset.price, dragItem.dataset.minQty, dragItem.dataset.type);
 }
 
 function toggleGroup(type) {

@@ -15,244 +15,304 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-bg); display: flex; height: 100vh; overflow: hidden; }
-
-  /* ── SIDEBAR ── */
-  #sidebar {
-    width: var(--sidebar-w);
-    min-width: var(--sidebar-w);
-    background: white;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: width 0.25s, min-width 0.25s;
-    z-index: 10;
-  }
-  #sidebar.collapsed { width: 48px; min-width: 48px; }
-
-  .sidebar-header {
-    background: var(--purple);
-    color: white;
-    padding: 16px 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  .sidebar-title { font-size: 0.85rem; font-weight: 700; white-space: nowrap; overflow: hidden; }
-  #sidebar.collapsed .sidebar-title { display: none; }
-
-  #toggle-sidebar {
-    background: none; border: none; color: white; cursor: pointer;
-    padding: 2px; flex-shrink: 0; display: flex; align-items: center;
-    font-size: 1.1rem;
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--gray-bg);
   }
 
-  .sidebar-body { overflow-y: auto; flex: 1; padding: 8px 0; }
-  #sidebar.collapsed .sidebar-body { display: none; }
+  /* ═══════════════════════════════
+     DESKTOP LAYOUT
+  ═══════════════════════════════ */
+  @media (min-width: 769px) {
+    body { display: flex; height: 100vh; overflow: hidden; }
 
-  /* collapsible group */
-  .nav-group { border-bottom: 1px solid var(--border); }
-  .nav-group-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 14px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 0.8rem; font-weight: 700;
-    color: var(--purple);
-    text-transform: uppercase; letter-spacing: 0.07em;
-    background: none; border: none; width: 100%; text-align: left;
+    /* ── Sidebar ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: white;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width 0.25s, min-width 0.25s;
+      z-index: 10;
+    }
+    #sidebar.collapsed { width: 48px; min-width: 48px; }
+    #sidebar.collapsed .sidebar-title { display: none; }
+    #sidebar.collapsed .sidebar-body { display: none; }
+
+    .sidebar-header {
+      background: var(--purple);
+      color: white;
+      padding: 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .sidebar-title { font-size: 0.85rem; font-weight: 700; white-space: nowrap; overflow: hidden; }
+
+    #toggle-sidebar {
+      background: none; border: none; color: white; cursor: pointer;
+      padding: 2px; flex-shrink: 0; display: flex; align-items: center;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-body { overflow-y: auto; flex: 1; padding: 8px 0; }
+
+    .nav-group { border-bottom: 1px solid var(--border); }
+    .nav-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      cursor: pointer; user-select: none;
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      background: none; border: none; width: 100%; text-align: left;
+    }
+    .nav-group-header:hover { background: var(--purple-pale); }
+    .nav-group-arrow { font-size: 0.7rem; transition: transform 0.2s; }
+    .nav-group.open .nav-group-arrow { transform: rotate(90deg); }
+
+    .nav-items { display: none; padding: 6px 8px 10px; }
+    .nav-group.open .nav-items { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+    .nav-card {
+      border-radius: 8px; overflow: hidden; cursor: grab;
+      border: 2px solid transparent; background: #fafafa;
+      transition: border-color 0.15s, transform 0.15s; user-select: none;
+    }
+    .nav-card:hover { border-color: var(--purple-light); transform: scale(1.03); }
+    .nav-card.selected { border-color: var(--purple); background: var(--purple-pale); }
+    .nav-card:active { cursor: grabbing; }
+    .nav-card img { width: 100%; display: block; object-fit: contain; background: white; }
+    .nav-card-tshirt img { height: 80px; }
+    .nav-card-pen    img { height: 64px; padding: 4px; }
+    .nav-card-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--purple);
+      text-align: center; padding: 3px 4px 4px;
+    }
+
+    /* ── Main ── */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .main-header {
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 14px 28px; flex-shrink: 0;
+    }
+    .main-header h1 { font-size: 1.1rem; font-weight: 700; color: var(--purple); }
+    .main-header p { font-size: 0.78rem; color: #888; margin-top: 3px; }
+
+    .main-body {
+      flex: 1; padding: 28px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+
+    .compare-wrap {
+      display: flex; flex-direction: row; gap: 8px;
+      justify-content: center; align-items: flex-start;
+    }
+    .slot {
+      background: white; border: 2.5px dashed var(--border); border-radius: 14px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative; overflow: hidden;
+      width: 600px; height: 600px; flex-shrink: 0;
+    }
+    .slot img { width: 100%; height: 550px; object-fit: contain; display: none; flex-shrink: 0; }
+    .slot-label {
+      font-size: 0.82rem; font-weight: 700; color: var(--purple);
+      padding: 6px 12px 10px; letter-spacing: 0.04em;
+      flex-shrink: 0; width: 100%; text-align: center;
+    }
+    .slot-placeholder {
+      text-align: center; pointer-events: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;
+    }
+    .slot-placeholder svg { opacity: 0.2; margin-bottom: 10px; }
+    .slot-placeholder p { color: #aaa; font-size: 0.82rem; }
+    .slot-placeholder .slot-side { font-size: 1.1rem; font-weight: 700; color: #ccc; margin-bottom: 8px; }
+
+    .tip {
+      background: var(--purple-pale); border-left: 3px solid var(--purple);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.78rem; color: #666; line-height: 1.6; flex-shrink: 0;
+    }
+    .tip b { color: var(--purple); }
+
+    /* hide mobile-only elements */
+    #mobile-tabs, #mobile-grid { display: none; }
   }
-  .nav-group-header:hover { background: var(--purple-pale); }
-  .nav-group-arrow { font-size: 0.7rem; transition: transform 0.2s; }
-  .nav-group.open .nav-group-arrow { transform: rotate(90deg); }
 
-  .nav-items { display: none; padding: 6px 8px 10px; }
-  .nav-group.open .nav-items { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  /* ═══════════════════════════════
+     MOBILE LAYOUT
+  ═══════════════════════════════ */
+  @media (max-width: 768px) {
+    body { display: block; min-height: 100vh; padding-bottom: 80px; }
 
-  .nav-card {
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: grab;
-    border: 2px solid transparent;
-    background: #fafafa;
-    transition: border-color 0.15s, transform 0.15s;
-    user-select: none;
+    /* hide desktop sidebar */
+    #sidebar { display: none; }
+    #main { display: block; }
+
+    .main-header {
+      background: var(--purple); color: white;
+      padding: 14px 16px; text-align: center;
+    }
+    .main-header h1 { font-size: 1rem; font-weight: 700; color: white; }
+    .main-header p { display: none; }
+
+    .main-body { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+
+    /* compare slots: two squares side by side */
+    .compare-wrap {
+      display: flex; flex-direction: row; gap: 6px;
+      justify-content: center;
+    }
+    .slot {
+      background: white;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative; overflow: hidden;
+      width: calc(50vw - 15px);
+      height: calc(50vw - 15px);
+      flex-shrink: 0;
+    }
+    .slot img {
+      width: 100%;
+      height: calc(50vw - 50px);
+      object-fit: contain;
+      display: none;
+      flex-shrink: 0;
+    }
+    .slot-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--purple);
+      padding: 4px 8px 6px; width: 100%; text-align: center; flex-shrink: 0;
+    }
+    .slot-placeholder {
+      text-align: center; pointer-events: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; padding: 8px;
+    }
+    .slot-placeholder svg { opacity: 0.2; margin-bottom: 6px; }
+    .slot-placeholder p { color: #aaa; font-size: 0.68rem; line-height: 1.4; }
+    .slot-placeholder .slot-side { font-size: 0.85rem; font-weight: 700; color: #ccc; margin-bottom: 4px; }
+
+    /* tip bar */
+    .tip {
+      background: var(--purple-pale); border-left: 3px solid var(--purple);
+      border-radius: 8px; padding: 8px 12px;
+      font-size: 0.75rem; color: #666; line-height: 1.5;
+    }
+    .tip b { color: var(--purple); }
+
+    /* ── Mobile Tab Bar ── */
+    #mobile-tabs {
+      display: flex;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .m-tab {
+      flex: 1; padding: 9px 4px; border: none; background: none;
+      font-size: 0.75rem; font-weight: 600; color: #999;
+      cursor: pointer; transition: background 0.15s, color 0.15s;
+      border-right: 1px solid var(--border);
+    }
+    .m-tab:last-child { border-right: none; }
+    .m-tab.active { background: var(--purple); color: white; }
+
+    /* ── Mobile Grid ── */
+    #mobile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .m-card {
+      background: white; border-radius: 10px; overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.15s;
+      cursor: pointer; user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .m-card:active { opacity: 0.7; }
+    .m-card.selected { border-color: var(--purple); background: var(--purple-pale); }
+    .m-card img {
+      width: 100%; display: block; object-fit: contain; background: white;
+    }
+    .m-card-tshirt img { height: 90px; }
+    .m-card-pen    img { height: 70px; padding: 6px; }
+    .m-card-label {
+      font-size: 0.68rem; font-weight: 700; color: var(--purple);
+      text-align: center; padding: 3px 4px 5px;
+    }
   }
-  .nav-card:hover { border-color: var(--purple-light); transform: scale(1.03); }
-  .nav-card.selected { border-color: var(--purple); background: var(--purple-pale); }
-  .nav-card:active { cursor: grabbing; }
 
-  .nav-card img {
-    width: 100%;
-    display: block;
-    object-fit: contain;
-    background: white;
-  }
-  .nav-card-tshirt img { height: 80px; }
-  .nav-card-pen    img { height: 64px; padding: 4px; }
-
-  .nav-card-label {
-    font-size: 0.7rem; font-weight: 700;
-    color: var(--purple);
-    text-align: center;
-    padding: 3px 4px 4px;
-  }
-
-  /* ── MAIN ── */
-  #main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .main-header {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 14px 28px;
-    flex-shrink: 0;
-  }
-  .main-header h1 { font-size: 1.1rem; font-weight: 700; color: var(--purple); }
-  .main-header p { font-size: 0.78rem; color: #888; margin-top: 3px; }
-
-  .main-body {
-    flex: 1;
-    padding: 28px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  /* ── COMPARE SLOTS ── */
-  .compare-wrap {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .slot {
-    background: white;
-    border: 2.5px dashed var(--border);
-    border-radius: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    overflow: hidden;
-    width: 600px;
-    height: 600px;
-    flex-shrink: 0;
-  }
-  .slot.drag-over { border-color: var(--purple); background: var(--purple-pale); }
-  .slot.filled { border-style: solid; border-color: var(--purple-light); }
-
-  .slot-placeholder { text-align: center; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
-  .slot-placeholder svg { opacity: 0.2; margin-bottom: 10px; }
-  .slot-placeholder p { color: #aaa; font-size: 0.82rem; }
-  .slot-placeholder .slot-side { font-size: 1.1rem; font-weight: 700; color: #ccc; margin-bottom: 8px; }
-
-  .slot img {
-    width: 100%;
-    height: 550px;
-    object-fit: contain;
-    display: none;
-    flex-shrink: 0;
-  }
-  .slot-label {
-    font-size: 0.82rem; font-weight: 700;
-    color: var(--purple);
-    padding: 6px 12px 10px;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-    width: 100%;
-    text-align: center;
-  }
+  /* ── Shared styles (both breakpoints) ── */
+  .slot.drag-over { border-color: var(--purple) !important; background: var(--purple-pale) !important; }
+  .slot.filled { border-style: solid !important; border-color: var(--purple-light) !important; }
   .slot-clear {
-    position: absolute; top: 12px; right: 12px;
-    background: rgba(0,0,0,0.1);
-    border: none; border-radius: 50%;
-    width: 30px; height: 30px;
-    cursor: pointer; font-size: 1rem;
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(0,0,0,0.12); border: none; border-radius: 50%;
+    width: 26px; height: 26px;
+    cursor: pointer; font-size: 0.85rem;
     display: none; align-items: center; justify-content: center;
-    color: #444;
-    transition: background 0.15s;
+    color: #333; transition: background 0.15s;
   }
-  .slot-clear:hover { background: rgba(0,0,0,0.2); }
+  .slot-clear:hover { background: rgba(0,0,0,0.22); }
   .slot.filled .slot-clear { display: flex; }
-
-  /* vs divider */
-  .vs-divider {
-    display: flex; align-items: center; justify-content: center;
-    grid-column: 1 / -1;
-    font-size: 0.75rem; color: #bbb; gap: 10px;
-    margin: -10px 0;
-  }
-  .vs-divider::before, .vs-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  /* tip */
-  .tip {
-    background: var(--purple-pale);
-    border-left: 3px solid var(--purple);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.78rem;
-    color: #666;
-    line-height: 1.6;
-    flex-shrink: 0;
-  }
-  .tip b { color: var(--purple); }
-
   .dragging-ghost { opacity: 0.4; }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ══ DESKTOP SIDEBAR ══ -->
 <aside id="sidebar">
   <div class="sidebar-header">
     <button id="toggle-sidebar" title="折叠/展开">☰</button>
     <span class="sidebar-title">备选款式</span>
   </div>
   <div class="sidebar-body">
-
     <div class="nav-group open" id="group-tshirt">
       <button class="nav-group-header" onclick="toggleGroup('tshirt')">
         👕 T恤 (01–08) <span class="nav-group-arrow">▶</span>
       </button>
       <div class="nav-items" id="tshirt-items"></div>
     </div>
-
+    <div class="nav-group open" id="group-pendesign">
+      <button class="nav-group-header" onclick="toggleGroup('pendesign')">
+        ✏️ 笔设计 (01–03) <span class="nav-group-arrow">▶</span>
+      </button>
+      <div class="nav-items" id="pendesign-items"></div>
+    </div>
     <div class="nav-group open" id="group-pen">
       <button class="nav-group-header" onclick="toggleGroup('pen')">
         🖊️ 笔 (A–N) <span class="nav-group-arrow">▶</span>
       </button>
       <div class="nav-items" id="pen-items"></div>
     </div>
-
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ══ MAIN ══ -->
 <div id="main">
   <div class="main-header">
     <h1>CBHD Lab 纪念品 — 对比选择</h1>
-    <p>从左侧导航拖拽图片到对比框，或直接点击图片放入</p>
+    <p>从左侧导航拖拽或点击图片放入对比框</p>
   </div>
   <div class="main-body">
 
     <div class="tip">
-      <b>使用方法：</b>左侧选款式 → <b>拖入</b>或<b>点击</b>放入对比框。两个框都可以放T恤或笔，方便跨类别比较。点 ✕ 清除。
+      <b>使用方法：</b>
+      <span class="desktop-tip">左侧选款式 → <b>拖入</b>或<b>点击</b>放入对比框。点 ✕ 清除。</span>
+      <span class="mobile-tip">点击下方图片放入对比框，先填左再填右。点 ✕ 清除。</span>
     </div>
 
+    <!-- Compare Slots -->
     <div class="compare-wrap">
       <div class="slot" id="slot-left"
         ondragover="onDragOver(event)"
@@ -260,8 +320,8 @@
         ondrop="onDrop(event,'left')">
         <div class="slot-placeholder">
           <div class="slot-side">左</div>
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4E2A84" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
-          <p>拖拽或点击图片放入此处</p>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4E2A84" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+          <p>拖拽或点击<br>图片放入此处</p>
         </div>
         <img src="" alt="">
         <div class="slot-label"></div>
@@ -274,14 +334,24 @@
         ondrop="onDrop(event,'right')">
         <div class="slot-placeholder">
           <div class="slot-side">右</div>
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4E2A84" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
-          <p>拖拽或点击图片放入此处</p>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4E2A84" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+          <p>拖拽或点击<br>图片放入此处</p>
         </div>
         <img src="" alt="">
         <div class="slot-label"></div>
         <button class="slot-clear" onclick="clearSlot(event,'right')">✕</button>
       </div>
     </div>
+
+    <!-- Mobile Tab Bar (hidden on desktop via CSS) -->
+    <div id="mobile-tabs">
+      <button class="m-tab active" onclick="switchTab('tshirt', this)">👕 T恤</button>
+      <button class="m-tab" onclick="switchTab('pendesign', this)">✏️ 笔设计</button>
+      <button class="m-tab" onclick="switchTab('pen', this)">🖊️ 笔</button>
+    </div>
+
+    <!-- Mobile Grid (hidden on desktop via CSS) -->
+    <div id="mobile-grid"></div>
 
   </div>
 </div>
@@ -313,9 +383,17 @@ const pens = [
   {id:'m',src:'m.png',label:'笔 M'},
   {id:'n',src:'n.png',label:'笔 N'},
 ];
+const pendesigns = [
+  {id:'p01',src:'p01.png',label:'笔设计 01'},
+  {id:'p02',src:'p02.png',label:'笔设计 02'},
+  {id:'p03',src:'p03.png',label:'笔设计 03'},
+];
 
+const allItems = { tshirt: tshirts, pen: pens, pendesign: pendesigns };
+let currentTab = 'tshirt';
 let dragItem = null;
 
+/* ── Desktop nav cards ── */
 function buildNavCard(item, type) {
   const div = document.createElement('div');
   div.className = `nav-card nav-card-${type}`;
@@ -323,25 +401,49 @@ function buildNavCard(item, type) {
   div.dataset.src = item.src;
   div.dataset.label = item.label;
   div.innerHTML = `<img src="${item.src}" alt="${item.label}" draggable="false"><div class="nav-card-label">${item.label}</div>`;
-
   div.addEventListener('dragstart', e => {
     dragItem = div;
     setTimeout(() => div.classList.add('dragging-ghost'), 0);
     e.dataTransfer.effectAllowed = 'copy';
   });
-  div.addEventListener('dragend', () => {
-    div.classList.remove('dragging-ghost');
-    dragItem = null;
-  });
-  div.addEventListener('click', () => {
-    const left = document.getElementById('slot-left');
-    const right = document.getElementById('slot-right');
-    if (!left.classList.contains('filled')) fillSlot('left', item.src, item.label);
-    else if (!right.classList.contains('filled')) fillSlot('right', item.src, item.label);
-    else fillSlot('left', item.src, item.label);
-    updateSelected();
-  });
+  div.addEventListener('dragend', () => { div.classList.remove('dragging-ghost'); dragItem = null; });
+  div.addEventListener('click', () => placeItem(item.src, item.label));
   return div;
+}
+
+/* ── Mobile grid cards ── */
+function buildMobileCard(item, type) {
+  const div = document.createElement('div');
+  div.className = `m-card m-card-${type}`;
+  div.dataset.src = item.src;
+  div.dataset.label = item.label;
+  div.innerHTML = `<img src="${item.src}" alt="${item.label}"><div class="m-card-label">${item.label}</div>`;
+  div.addEventListener('click', () => placeItem(item.src, item.label));
+  return div;
+}
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderMobileGrid();
+}
+
+function renderMobileGrid() {
+  const grid = document.getElementById('mobile-grid');
+  grid.innerHTML = '';
+  const type = currentTab === 'tshirt' ? 'tshirt' : 'pen';
+  allItems[currentTab].forEach(item => grid.appendChild(buildMobileCard(item, type)));
+  updateSelected();
+}
+
+/* ── Shared place logic ── */
+function placeItem(src, label) {
+  const left = document.getElementById('slot-left');
+  const right = document.getElementById('slot-right');
+  if (!left.classList.contains('filled')) fillSlot('left', src, label);
+  else if (!right.classList.contains('filled')) fillSlot('right', src, label);
+  else fillSlot('left', src, label);
 }
 
 function fillSlot(side, src, label) {
@@ -361,14 +463,14 @@ function clearSlot(e, side) {
   img.src = ''; img.style.display = 'none';
   slot.querySelector('.slot-label').textContent = '';
   slot.querySelector('.slot-placeholder').style.display = '';
-  slot.classList.remove('filled','drag-over');
+  slot.classList.remove('filled', 'drag-over');
   updateSelected();
 }
 
 function updateSelected() {
   const ll = document.querySelector('#slot-left .slot-label').textContent;
   const rl = document.querySelector('#slot-right .slot-label').textContent;
-  document.querySelectorAll('.nav-card').forEach(c => {
+  document.querySelectorAll('.nav-card, .m-card').forEach(c => {
     c.classList.toggle('selected', c.dataset.label === ll || c.dataset.label === rl);
   });
 }
@@ -378,20 +480,29 @@ function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
 function onDrop(e, side) {
   e.preventDefault();
   e.currentTarget.classList.remove('drag-over');
-  if (dragItem) { fillSlot(side, dragItem.dataset.src, dragItem.dataset.label); }
+  if (dragItem) fillSlot(side, dragItem.dataset.src, dragItem.dataset.label);
 }
 
 function toggleGroup(type) {
   document.getElementById(`group-${type}`).classList.toggle('open');
 }
 
-document.getElementById('toggle-sidebar').addEventListener('click', () => {
+/* ── tip text by device ── */
+const isMobile = window.innerWidth <= 768;
+document.querySelector('.desktop-tip').style.display = isMobile ? 'none' : '';
+document.querySelector('.mobile-tip').style.display = isMobile ? '' : 'none';
+
+/* ── Init ── */
+const toggleBtn = document.getElementById('toggle-sidebar');
+if (toggleBtn) toggleBtn.addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('collapsed');
 });
 
-// Build nav
-tshirts.forEach(t => document.getElementById('tshirt-items').appendChild(buildNavCard(t,'tshirt')));
-pens.forEach(p => document.getElementById('pen-items').appendChild(buildNavCard(p,'pen')));
+tshirts.forEach(t => document.getElementById('tshirt-items').appendChild(buildNavCard(t, 'tshirt')));
+pens.forEach(p => document.getElementById('pen-items').appendChild(buildNavCard(p, 'pen')));
+pendesigns.forEach(p => document.getElementById('pendesign-items').appendChild(buildNavCard(p, 'pen')));
+
+renderMobileGrid(); // init mobile grid with tshirt tab
 </script>
 </body>
 </html>
